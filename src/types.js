@@ -1,10 +1,7 @@
-# <%= name %>
+// @flow
 
-> <%= description %>
+import {Channel, Socket as PhoenixClient} from "phoenix";
 
-## Types
-
-```flowtype
 type SubscriptionObserver<Value> = {
   onAbort: (error: Error) => any,
   onError: (error: Error) => any,
@@ -32,12 +29,14 @@ type AbsintheSubscriber = {
   channel: Channel,
   isJoining: boolean,
   phoenixClient: PhoenixClient,
+  // $FlowFixMe: figure out why this is throwing an error
   subscriptions: Array<Subscription<any>>
 };
-```
 
-## API
-
-## License
-
-[<%= license %>](LICENSE.txt) :copyright: **Jumpn Limited** / <%= author.name %> (<%= author.email %>)
+export type {
+  AbsintheSubscriber,
+  ObservationLink,
+  Subscription,
+  SubscriptionMessage,
+  SubscriptionObserver
+};

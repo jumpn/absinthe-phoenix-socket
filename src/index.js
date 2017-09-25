@@ -2,7 +2,7 @@
 
 import gqlErrorsToString from "@jumpn/utils-graphql/compat/cjs/errorsToString";
 import hasIn from "@jumpn/utils-composite/compat/cjs/hasIn";
-import {Channel, Socket as PhoenixClient} from "phoenix";
+import {Socket as PhoenixClient} from "phoenix";
 
 import type {GqlError} from "@jumpn/utils-graphql/compat/cjs/types";
 import type {Message} from "phoenix";
@@ -10,23 +10,12 @@ import type {Message} from "phoenix";
 import * as withSubscription from "./subscription";
 
 import type {
+  AbsintheSubscriber,
+  ObservationLink,
   Subscription,
   SubscriptionMessage,
   SubscriptionObserver
-} from "./subscription";
-
-type AbsintheSubscriber = {
-  channel: Channel,
-  isJoining: boolean,
-  phoenixClient: PhoenixClient,
-  // $FlowFixMe: figure out why this is throwing an error
-  subscriptions: Array<Subscription<any>>
-};
-
-type ObservationLink<Value> = {
-  isObserving: () => boolean,
-  unobserve: () => Promise<Subscription<Value>>
-};
+} from "./types";
 
 type SubscriptionOkResponse = {
   subscriptionId: string,

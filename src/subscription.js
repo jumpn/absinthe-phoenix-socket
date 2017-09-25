@@ -6,25 +6,13 @@ import {
   replace as arrayReplace
 } from "@jumpn/utils-array";
 
+import type {
+  Subscription,
+  SubscriptionMessage,
+  SubscriptionObserver
+} from "./types";
+
 type SubscriptionObserverMethod = "onAbort" | "onError" | "onOpen" | "onValue";
-
-type SubscriptionObserver<Value> = {
-  onAbort: (error: Error) => any,
-  onError: (error: Error) => any,
-  onOpen: (subscription: Subscription<Value>) => any,
-  onValue: (value: Value) => any
-};
-
-type SubscriptionMessage = {
-  query: string,
-  variables?: Object
-};
-
-type Subscription<Value> = {
-  message: SubscriptionMessage,
-  observers: Array<SubscriptionObserver<Value>>,
-  id?: string
-};
 
 const create = (message: SubscriptionMessage): Subscription<*> => ({
   message,
