@@ -7,8 +7,7 @@ import updateNotifiers from "./updateNotifiers";
 import type {AbsintheSocket, Notifier, Observer} from "./types";
 
 /**
- * Detaches observer from notifier, removes it if it has no observers,
- * and unsubscribes subscription if it was notifying one
+ * Detaches observer from notifier
  *
  * @example
  * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
