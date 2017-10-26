@@ -1,42 +1,61 @@
 // @flow
 
-import {Channel, Socket as PhoenixClient} from "phoenix";
+import {Channel, Socket as PhoenixSocket} from "phoenix";
 
-type SubscriptionObserver<Value> = {
-  onAbort: (error: Error) => any,
-  onError: (error: Error) => any,
-  onOpen: (subscription: Subscription<Value>) => any,
-  onValue: (value: Value) => any
+import type {
+  GqlOperationType,
+  GqlRequest
+} from "@jumpn/utils-graphql/compat/cjs/types";
+
+type Event = "Abort" | "Error" | "Start" | "Stop" | "Value";
+
+type Observer<Value> = {
+  onAbort?: (error: Error) => any,
+  onError?: (error: Error) => any,
+  onStart?: () => any,
+  onValue?: (value: Value) => any
 };
 
-type SubscriptionMessage = {
-  query: string,
-  variables?: Object
+type Notifier<Result> = {
+  observers: Array<Observer<Result>>,
+  operationType: GqlOperationType,
+  request: GqlRequest<*>,
+  subscriptionId?: string
 };
 
-type Subscription<Value> = {
-  message: SubscriptionMessage,
-  observers: Array<SubscriptionObserver<Value>>,
-  id?: string
-};
-
-type ObservationLink<Value> = {
-  isObserving: () => boolean,
-  unobserve: () => Promise<Subscription<Value>>
-};
-
-type AbsintheSubscriber = {
+type AbsintheSocket = {
   channel: Channel,
   isJoining: boolean,
-  phoenixClient: PhoenixClient,
-  // $FlowFixMe: figure out why this is throwing an error
-  subscriptions: Array<Subscription<any>>
+  notifiers: Array<Notifier<any>>,
+  phoenixSocket: PhoenixSocket
+};
+
+type PushHandler<Response: Object> = {
+  onError: (errorMessage: string) => any,
+  onSucceed: (response: Response) => any,
+  onTimeout: () => any
+};
+
+type NotifierPushHandler<Response: Object> = {
+  onError: (
+    absintheSocket: AbsintheSocket,
+    notifier: Notifier<any>,
+    errorMessage: string
+  ) => any,
+  onSucceed: (
+    absintheSocket: AbsintheSocket,
+    notifier: Notifier<any>,
+    response: Response
+  ) => any,
+  onTimeout: (absintheSocket: AbsintheSocket, notifier: Notifier<any>) => any
 };
 
 export type {
-  AbsintheSubscriber,
-  ObservationLink,
-  Subscription,
-  SubscriptionMessage,
-  SubscriptionObserver
+  AbsintheSocket,
+  Event,
+  GqlRequest,
+  Notifier,
+  Observer,
+  NotifierPushHandler,
+  PushHandler
 };
