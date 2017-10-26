@@ -6,21 +6,20 @@
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
   "scripts": {
-    "clean": "rm -rfv dist compat",
     "flow-copy-source": "flow-copy-source -v src",
-    "build:flow": "yarn flow-copy-source dist && yarn flow-copy-source compat/cjs",
-    "build:index": "create-index --banner '// @flow' src/ && sed -f indexIgnore.sed -i src/index.js && yarn lint:fix src/index.js",
-    "build:readme": "pkg-to-readme --template ./readmeTemplate.ejs --force && documentation readme src/** --section API",
+    "build:clean": "rm -rfv dist compat",
+    "build:flow": "yarn run flow-copy-source dist && yarn run flow-copy-source compat/cjs",
+    "build:readme": "pkg-to-readme --template ./readmeTemplate.ejs --force && documentation readme src/** --section API && doctoc README.md",
     "build:src": "rollup -c",
-    "build": "yarn run clean && yarn build:index && yarn run build:src && yarn run build:flow && yarn build:readme",
+    "build": "yarn run build:clean && yarn run build:src && yarn run build:flow && yarn run build:readme",
     "lint": "eslint --rule 'flowtype-errors/show-errors: error'",
     "lint:fix": "yarn run lint -- --fix",
     "npm:publish": "np",
     "precommit": "lint-staged",
     "commit": "git-cz",
     "commitmsg": "commitlint -e",
-    "version": "yarn build:index && yarn build:readme && git add README.md src/index.js",
-    "prepublishOnly": "yarn build:src && yarn build:flow"
+    "version": "yarn run build:readme && git add README.md",
+    "prepublishOnly": "yarn run build:clean && yarn run build:src && yarn run build:flow"
   },
   "config": {
     "commitizen": {
