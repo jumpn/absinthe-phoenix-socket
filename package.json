@@ -1,8 +1,8 @@
 {
-  "name": "@jumpn/absinthe-phoenix-subscriber",
+  "name": "@jumpn/absinthe-phoenix-socket",
   "private": true,
   "version": "0.0.0",
-  "description": "Absinthe Phoenix Subscriber",
+  "description": "Absinthe Phoenix Socket",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
   "browser": "compat/umd/index.js",
@@ -36,14 +36,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jumpn/absinthe-phoenix-subscriber.git"
+    "url": "git+https://github.com/jumpn/absinthe-phoenix-socket.git"
   },
   "author": "Mauro Titimoli <mauro@jumpn.com> (https://github.com/mgtitimoli)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jumpn/absinthe-phoenix-subscriber/issues"
+    "url": "https://github.com/jumpn/absinthe-phoenix-socket/issues"
   },
-  "homepage": "https://github.com/jumpn/absinthe-phoenix-subscriber#readme",
+  "homepage": "https://github.com/jumpn/absinthe-phoenix-socket#readme",
   "dependencies": {
     "@jumpn/utils-array": "0.1.2",
     "@jumpn/utils-composite": "0.2.0",
