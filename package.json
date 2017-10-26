@@ -5,7 +5,6 @@
   "description": "Absinthe Phoenix Socket",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
-  "browser": "compat/umd/index.js",
   "scripts": {
     "clean": "rm -rfv dist compat",
     "flow-copy-source": "flow-copy-source -v src",
