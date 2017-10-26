@@ -2,7 +2,7 @@
 
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
-import fs from "fs";
+import globby from "globby";
 import pascalCase from "pascal-case";
 import resolve from "rollup-plugin-node-resolve";
 import uglify from "rollup-plugin-uglify";
@@ -36,7 +36,7 @@ const getCjsAndEsConfig = fileName => ({
   sourcemap: true
 });
 
-const sources = fs.readdirSync("src");
+const sources = globby.sync("**/*js", {cwd: dirs.input});
 
 const getUnscopedName = pkg => pkg.name.split("/")[1];
 
