@@ -1,6 +1,5 @@
 {
   "name": "@jumpn/absinthe-phoenix-socket",
-  "private": true,
   "version": "0.0.0",
   "description": "Absinthe Phoenix Socket",
   "module": "dist/index.js",
