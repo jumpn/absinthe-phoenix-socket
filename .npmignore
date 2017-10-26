@@ -1,6 +1,8 @@
 src/
 .*
 commitlint.config.js
+indexIgnore.sed
 readmeTemplate.ejs
 rollup.config.js
 yarn.lock
+yarn-error.log
