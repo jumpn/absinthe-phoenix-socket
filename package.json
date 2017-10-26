@@ -1,6 +1,6 @@
 {
   "name": "@jumpn/absinthe-phoenix-socket",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Absinthe Phoenix Socket",
   "module": "dist/index.js",
   "main": "compat/cjs/index.js",
