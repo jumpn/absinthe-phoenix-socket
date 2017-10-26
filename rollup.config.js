@@ -5,6 +5,8 @@ import commonjs from "rollup-plugin-commonjs";
 import fs from "fs";
 import pascalCase from "pascal-case";
 import resolve from "rollup-plugin-node-resolve";
+import uglify from "rollup-plugin-uglify";
+import {minify} from "uglify-es";
 
 import pkg from "./package.json";
 
@@ -14,7 +16,8 @@ const plugins = {
     runtimeHelpers: true
   }),
   commonjs: commonjs(),
-  resolve: resolve()
+  resolve: resolve(),
+  uglify: uglify({}, minify)
 };
 
 const dirs = {
@@ -29,8 +32,8 @@ const getCjsAndEsConfig = fileName => ({
     {file: `${dirs.output}/${fileName}`, format: "es"},
     {file: `${dirs.compat}/cjs/${fileName}`, format: "cjs"}
   ],
-  sourcemap: true,
-  plugins: [plugins.babel]
+  plugins: [plugins.babel, plugins.uglify],
+  sourcemap: true
 });
 
 const sources = fs.readdirSync("src");
@@ -44,9 +47,9 @@ export default [
       file: `${dirs.compat}/umd/index.js`,
       format: "umd"
     },
-    sourcemap: true,
-    plugins: [plugins.babel, plugins.resolve, plugins.commonjs],
-    name: pascalCase(getUnscopedName(pkg))
+    name: pascalCase(getUnscopedName(pkg)),
+    plugins: [plugins.babel, plugins.resolve, plugins.commonjs, plugins.uglify],
+    sourcemap: true
   },
   ...sources.map(getCjsAndEsConfig)
 ];
