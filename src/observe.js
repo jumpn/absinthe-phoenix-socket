@@ -14,7 +14,7 @@ import type {AbsintheSocket, Notifier, Observer} from "./types";
  *
  * const logEvent = eventName => (...args) => console.log(eventName, ...args);
  *
- * AbsintheSocket.observe(absintheSocket, notifier, {
+ * const updatedNotifier = AbsintheSocket.observe(absintheSocket, notifier, {
  *   onAbort: logEvent("abort"),
  *   onError: logEvent("error"),
  *   onStart: logEvent("open"),

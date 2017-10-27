@@ -47,10 +47,8 @@ const unsubscribe = (absintheSocket, notifier) =>
  *
  * @example
  * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
-
- * AbsintheSocket.create(
- *   new PhoenixSocket("ws://localhost:4000/socket")
- * );
+ * 
+ * AbsintheSocket.discard(absintheSocket, notifier);
  */
 const discard = (
   absintheSocket: AbsintheSocket,
