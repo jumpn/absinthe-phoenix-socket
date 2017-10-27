@@ -28,6 +28,10 @@
 - Multiple observers per request
 > Calling [send](#send) returns a notifier which allows attaching any number of
   observers that will be notified when result arrives.
+- Observer interaction depending on operation type
+> For the case of subscriptions, *Start* event is dispatched when the
+  subscription is established, while for the other types
+  (queries and mutations), when the request is sent.
 
 ## Installation
 

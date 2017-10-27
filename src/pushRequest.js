@@ -27,11 +27,16 @@ const onQueryOrMutationResponse = (absintheSocket, notifier, response) => {
   notifierNotify(notifier, "Value", response.payload.result);
 };
 
-const onSubscriptionResponse = (absintheSocket, notifier, {subscriptionId}) =>
+const notifyStart = notifier => notifierNotify(notifier, "Start", notifier);
+
+const onSubscriptionResponse = (absintheSocket, notifier, {subscriptionId}) => {
   updateNotifiers(
     absintheSocket,
     notifierRefresh({...notifier, subscriptionId})
   );
+
+  notifyStart(notifier);
+};
 
 const onResponse = (absintheSocket, notifier, response) => {
   // it would have been better to check against notifier.operationType,
@@ -42,9 +47,6 @@ const onResponse = (absintheSocket, notifier, response) => {
     onQueryOrMutationResponse(absintheSocket, notifier, response);
   }
 };
-
-const getResponseError = (response: ErrorResponse) =>
-  new Error(gqlErrorsToString(response.errors));
 
 const abortRequest = (absintheSocket, notifier, error) => {
   updateNotifiers(absintheSocket, notifierRemove(notifier));
@@ -57,7 +59,7 @@ const onError = (absintheSocket, notifier, errorMessage) =>
 
 const onSucceed = (absintheSocket, notifier, response) => {
   if (response.errors) {
-    abortRequest(absintheSocket, notifier, getResponseError(response));
+    onError(absintheSocket, notifier, gqlErrorsToString(response.errors));
   } else {
     onResponse(absintheSocket, notifier, response);
   }
@@ -76,7 +78,9 @@ const pushRequest = (
   absintheSocket: AbsintheSocket,
   notifier: Notifier<any>
 ) => {
-  notifierNotify(notifier, "Start");
+  if (notifier.operationType !== "subscription") {
+    notifyStart(notifier);
+  }
 
   handlePush(
     absintheSocket.channel.push("doc", notifier.request),
