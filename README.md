@@ -44,6 +44,10 @@
 -   Multiple observers per request
     > Calling [send](#send) returns a notifier which allows attaching any number of
     >   observers that will be notified when result arrives.
+-   Observer interaction depending on operation type
+    > For the case of subscriptions, _Start_ event is dispatched when the
+    >   subscription is established, while for the other types
+    >   (queries and mutations), when the request is sent.
 
 ## Installation
 
@@ -122,9 +126,7 @@ unsubscribing in case it holds a subscription request
 ```javascript
 import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
 
-AbsintheSocket.create(
-  new PhoenixSocket("ws://localhost:4000/socket")
-);
+AbsintheSocket.discard(absintheSocket, notifier);
 ```
 
 Returns **AbsintheSocket** 
@@ -146,7 +148,7 @@ import AbsintheSocket from "@jumpn/absinthe-phoenix-socket"
 
 const logEvent = eventName => (...args) => console.log(eventName, ...args);
 
-AbsintheSocket.observe(absintheSocket, notifier, {
+const updatedNotifier = AbsintheSocket.observe(absintheSocket, notifier, {
   onAbort: logEvent("abort"),
   onError: logEvent("error"),
   onStart: logEvent("open"),
