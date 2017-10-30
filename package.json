@@ -49,11 +49,7 @@
     "@jumpn/utils-array": "0.3.4",
     "@jumpn/utils-composite": "0.4.2",
     "@jumpn/utils-graphql": "0.4.0",
-    "babel-polyfill": "6.26.0",
-    "babel-runtime": "6.26.0",
-    "flow-static-land": "0.2.7",
-    "lodash": "4.17.4",
-    "ws": "3.2.0"
+    "babel-runtime": "6.26.0"
   },
   "devDependencies": {
     "@commitlint/cli": "4.2.2",
