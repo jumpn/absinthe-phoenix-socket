@@ -13,7 +13,7 @@ type Observer<Result> = {
   onAbort?: (error: Error) => any,
   onCancel?: () => any,
   onError?: (error: Error) => any,
-  onStart?: () => any,
+  onStart?: (notifier: Notifier<Result>) => any,
   onResult?: (result: Result) => any
 };
 
