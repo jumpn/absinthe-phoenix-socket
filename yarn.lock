@@ -1600,7 +1600,7 @@ create-error-class@^3.0.0:
   dependencies:
     capture-stack-trace "^1.0.0"
 
-create-index@^2.2.0:
+create-index@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/create-index/-/create-index-2.2.0.tgz#0a34da452254e92f8a9575e6a527460143912a54"
   dependencies:
