@@ -7,14 +7,14 @@ import type {
   GqlRequest
 } from "@jumpn/utils-graphql/compat/cjs/types";
 
-type Event = "Abort" | "Cancel" | "Error" | "Start" | "Value";
+type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
 
-type Observer<Value> = {
+type Observer<Result> = {
   onAbort?: (error: Error) => any,
   onCancel?: () => any,
   onError?: (error: Error) => any,
   onStart?: () => any,
-  onValue?: (value: Value) => any
+  onResult?: (result: Result) => any
 };
 
 type Notifier<Result> = {

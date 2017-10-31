@@ -62,14 +62,14 @@
 ## Types
 
 ```flowtype
-type Event = "Abort" | "Cancel" | "Error" | "Start" | "Value";
+type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
 
-type Observer<Value> = {
+type Observer<Result> = {
   onAbort: (error: Error) => any,
   onCancel: (error: Error) => any,
   onError: (error: Error) => any,
   onStart: () => any,
-  onValue: (value: Value) => any
+  onResult: (result: Result) => any
 };
 
 type Notifier<Result> = {
@@ -139,8 +139,8 @@ Observes given notifier using the provided observer
 **Parameters**
 
 -   `absintheSocket` **AbsintheSocket** 
--   `notifier` **Notifier&lt;Value>** 
--   `observer` **Observer&lt;Value>** 
+-   `notifier` **Notifier&lt;Result>** 
+-   `observer` **Observer&lt;Result>** 
 
 **Examples**
 
@@ -153,7 +153,7 @@ const updatedNotifier = AbsintheSocket.observe(absintheSocket, notifier, {
   onAbort: logEvent("abort"),
   onError: logEvent("error"),
   onStart: logEvent("open"),
-  onValue: logEvent("next")
+  onResult: logEvent("result")
 });
 ```
 

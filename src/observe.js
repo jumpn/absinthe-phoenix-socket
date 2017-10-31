@@ -18,13 +18,13 @@ import type {AbsintheSocket, Notifier, Observer} from "./types";
  *   onAbort: logEvent("abort"),
  *   onError: logEvent("error"),
  *   onStart: logEvent("open"),
- *   onValue: logEvent("next")
+ *   onResult: logEvent("result")
  * });
  */
-const observe = <Value>(
+const observe = <Result>(
   absintheSocket: AbsintheSocket,
-  notifier: Notifier<Value>,
-  observer: Observer<Value>
+  notifier: Notifier<Result>,
+  observer: Observer<Result>
 ): AbsintheSocket =>
   updateNotifiers(
     absintheSocket,

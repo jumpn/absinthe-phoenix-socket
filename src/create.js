@@ -55,7 +55,7 @@ const onSubscriptionData = (
   );
 
   if (notifier) {
-    notifierNotify(notifier, "Value", payload.result);
+    notifierNotify(notifier, "Result", payload.result);
   }
 };
 

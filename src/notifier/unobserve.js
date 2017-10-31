@@ -4,9 +4,9 @@ import {remove as arrayRemove} from "@jumpn/utils-array";
 
 import type {Notifier, Observer} from "../types";
 
-const unobserve = <Value>(
-  {observers, ...rest}: Notifier<Value>,
-  observer: Observer<Value>
+const unobserve = <Result>(
+  {observers, ...rest}: Notifier<Result>,
+  observer: Observer<Result>
 ) => ({
   ...rest,
   observers: arrayRemove(observers.indexOf(observer), 1, observers)

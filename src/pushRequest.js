@@ -24,7 +24,7 @@ type Response = ErrorResponse | SubscriptionResponse | QueryOrMutationResponse;
 const onQueryOrMutationResponse = (absintheSocket, notifier, response) => {
   updateNotifiers(absintheSocket, notifierRemove(notifier));
 
-  notifierNotify(notifier, "Value", response.payload.result);
+  notifierNotify(notifier, "Result", response.payload.result);
 };
 
 const notifyStart = notifier => notifierNotify(notifier, "Start", notifier);

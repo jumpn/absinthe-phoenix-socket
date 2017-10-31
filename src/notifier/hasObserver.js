@@ -2,9 +2,9 @@
 
 import type {Notifier, Observer} from "../types";
 
-const hasObserver = <Value>(
-  notifier: Notifier<Value>,
-  observer: Observer<Value>
+const hasObserver = <Result>(
+  notifier: Notifier<Result>,
+  observer: Observer<Result>
 ) => notifier.observers.includes(observer);
 
 export default hasObserver;

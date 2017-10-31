@@ -2,9 +2,9 @@
 
 import type {Notifier, Observer} from "../types";
 
-const observe = <Value>(
-  {observers, ...rest}: Notifier<Value>,
-  observer: Observer<Value>
+const observe = <Result>(
+  {observers, ...rest}: Notifier<Result>,
+  observer: Observer<Result>
 ) => ({
   ...rest,
   observers: [...observers, observer]
