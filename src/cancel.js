@@ -14,7 +14,7 @@ type UnsubscribeResponse = {};
 const removeNotifiers = (absintheSocket, notifier) => {
   updateNotifiers(absintheSocket, notifierRemove(notifier));
 
-  notifierNotify(notifier, "Stop", notifier);
+  notifierNotify(notifier, "Cancel", notifier);
 };
 
 const onError = (absintheSocket, notifier, errorMessage) => {
@@ -42,15 +42,15 @@ const unsubscribe = (absintheSocket, notifier) =>
   );
 
 /**
- * Discards a notifier sending a Stop event to all its observers and
+ * Cancels a notifier sending a Stop event to all its observers and
  * unsubscribing in case it holds a subscription request
  *
  * @example
  * import * as AbsintheSocket from "@jumpn/absinthe-phoenix-socket";
  * 
- * AbsintheSocket.discard(absintheSocket, notifier);
+ * AbsintheSocket.cancel(absintheSocket, notifier);
  */
-const discard = (
+const cancel = (
   absintheSocket: AbsintheSocket,
   notifier: Notifier<any>
 ): AbsintheSocket => {
@@ -63,4 +63,4 @@ const discard = (
   return absintheSocket;
 };
 
-export default discard;
+export default cancel;
