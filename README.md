@@ -40,7 +40,7 @@
     >   reestablished.
 -   Cancellable requests
     > Calling [cancel](#cancel) removes given notifier from absintheSocket instance
-    >   and sends a Cancel event to all its observers and unsubscribing in case it
+    >   and sends a Cancel event to all its observers and unsubscribes in case it
     >   holds a subscription request. 
 -   Observer support of recoverable errors
     > Since connection lost is handled, then two events needs to exist to represent
