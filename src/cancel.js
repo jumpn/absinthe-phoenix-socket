@@ -42,7 +42,7 @@ const unsubscribe = (absintheSocket, notifier) =>
   );
 
 /**
- * Cancels a notifier sending a Stop event to all its observers and
+ * Cancels a notifier sending a Cancel event to all its observers and
  * unsubscribing in case it holds a subscription request
  *
  * @example

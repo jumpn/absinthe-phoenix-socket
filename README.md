@@ -38,6 +38,10 @@
 -   Handle pending operations on connection lost
     > Pending mutations will be aborted, queries will be resent, and subscriptions
     >   reestablished.
+-   Cancellable request
+    > Calling [cancel](#cancel) removes given notifier from absintheSocket instance
+    >   and sends a Cancel event to all its observers and unsubscribing in case it
+    >   holds a subscription request. 
 -   Observer support of recoverable errors
     > Since connection lost is handled, then two events needs to exist to represent
     >   this fact: Error (recoverable), Abort (unrecoverable).
@@ -62,6 +66,12 @@
 ## Types
 
 ```flowtype
+// from @jumpn/utils-graphql
+type GqlRequest<Variables: void | Object = void> = {
+  operation: string,
+  variables?: Variables
+};
+
 type Event = "Abort" | "Cancel" | "Error" | "Start" | "Result";
 
 type Observer<Result> = {
@@ -93,7 +103,7 @@ type AbsintheSocket = {
 
 ### cancel
 
-Cancels a notifier sending a Stop event to all its observers and
+Cancels a notifier sending a Cancel event to all its observers and
 unsubscribing in case it holds a subscription request
 
 **Parameters**
