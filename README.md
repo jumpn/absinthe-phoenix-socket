@@ -16,6 +16,7 @@
   - [create](#create)
   - [observe](#observe)
   - [send](#send)
+  - [toObservable](#toobservable)
   - [unobserve](#unobserve)
 - [License](#license)
 
@@ -41,7 +42,7 @@
 -   Cancellable requests
     > Calling [cancel](#cancel) removes given notifier from absintheSocket instance
     >   and sends a Cancel event to all its observers and unsubscribes in case it
-    >   holds a subscription request. 
+    >   holds a subscription request.
 -   Observer support of recoverable errors
     > Since connection lost is handled, then two events needs to exist to represent
     >   this fact: Error (recoverable), Abort (unrecoverable).
@@ -203,6 +204,21 @@ const notifier = AbsintheSocket.send(absintheSocket, {
 ```
 
 Returns **Notifier&lt;any>** 
+
+### toObservable
+
+Creates an Observable that will follow the given notifier
+
+**Parameters**
+
+-   `absintheSocket` **AbsintheSocket** 
+-   `notifier` **Notifier&lt;Result>** 
+-   `options` **[Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object)?**  (optional, default `{}`)
+    -   `options.onError` **function (error: [Error](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error)): [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)?** 
+    -   `options.onStart` **function (notifier: Notifier&lt;Result>): [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)?** 
+    -   `options.unsubscribe` **function (): [undefined](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined)?** 
+
+Returns **Observable** 
 
 ### unobserve
 
