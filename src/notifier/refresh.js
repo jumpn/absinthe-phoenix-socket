@@ -10,7 +10,7 @@ const refresh = (notifier: Notifier<any>) => (
   notifiers: Array<Notifier<any>>
 ) =>
   arrayReplace(
-    findIndex(notifiers, "request", notifier),
+    findIndex(notifiers, "request", notifier.request),
     [notifier],
     notifiers
   );
