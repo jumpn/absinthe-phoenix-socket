@@ -16,9 +16,6 @@
 > If provided phoenix socket instance is not connected, then instead of
   connecting at creation time, connection will be established on the next
   invocation of [send](#send).
-- Reconnect channel on connection lost
-> Phoenix socket reconnects on connection lost but it doesn't rejoin to the
-  channel automatically, we do.
 - Handle pending operations on connection lost
 > Pending mutations will be aborted, queries will be resent, and subscriptions
   reestablished.
@@ -79,7 +76,7 @@ type Notifier<Result> = {
 
 type AbsintheSocket = {
   channel: Channel,
-  isJoining: boolean,
+  channelJoinCreated: boolean,
   notifiers: Array<Notifier<any>>,
   phoenixSocket: PhoenixSocket
 };

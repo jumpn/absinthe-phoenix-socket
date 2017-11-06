@@ -9,18 +9,14 @@ import updateNotifiers from "./updateNotifiers";
 
 import type {AbsintheSocket, GqlRequest, Notifier} from "./types";
 
-const connectOrJoin = absintheSocket => {
-  absintheSocket.isJoining = true;
-
+const connectOrJoinChannel = absintheSocket => {
   if (absintheSocket.phoenixSocket.isConnected()) {
     joinChannel(absintheSocket);
   } else {
+    // socket ignores connect calls if a connection has already been created
     absintheSocket.phoenixSocket.connect();
   }
 };
-
-const isJoined = absintheSocket =>
-  absintheSocket.phoenixSocket.isConnected() && !absintheSocket.isJoining;
 
 /**
  * Sends given request and returns an object (notifier) to track its progress
@@ -54,10 +50,10 @@ const send = (
 
   updateNotifiers(absintheSocket, append([notifier]));
 
-  if (isJoined(absintheSocket)) {
+  if (absintheSocket.channelJoinCreated) {
     pushRequest(absintheSocket, notifier);
   } else {
-    connectOrJoin(absintheSocket);
+    connectOrJoinChannel(absintheSocket);
   }
 
   return notifier;

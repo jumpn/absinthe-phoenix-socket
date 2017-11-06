@@ -26,7 +26,7 @@ type Notifier<Result> = {
 
 type AbsintheSocket = {
   channel: Channel,
-  isJoining: boolean,
+  channelJoinCreated: boolean,
   notifiers: Array<Notifier<any>>,
   phoenixSocket: PhoenixSocket
 };

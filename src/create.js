@@ -33,16 +33,8 @@ const notifierOnConnectionClose = absintheSocket => notifier => {
   }
 };
 
-const onConnectionClose = absintheSocket => () => {
-  if (absintheSocket.notifiers.length === 0) return;
-
-  // phoenix socket reconnects automatically, but channel does not, this is why
-  // we are setting isJoining flag to true (only if there are notifiers),
-  // so in onConnectionOpen handler we can detect this and rejoin channel
-  absintheSocket.isJoining = true;
-
+const onConnectionClose = absintheSocket => () =>
   absintheSocket.notifiers.forEach(notifierOnConnectionClose(absintheSocket));
-};
 
 const onSubscriptionData = (
   absintheSocket: AbsintheSocket,
@@ -65,17 +57,12 @@ const onMessage = absintheSocket => (response: Message<>) => {
   }
 };
 
-const joinChannelIfNeeded = absintheSocket => {
-  if (absintheSocket.notifiers.length === 0) {
-    absintheSocket.isJoining = false;
-  } else {
-    joinChannel(absintheSocket);
-  }
-};
+const shouldJoinChannel = absintheSocket =>
+  !absintheSocket.channelJoinCreated && absintheSocket.notifiers.length > 0;
 
 const onConnectionOpen = absintheSocket => () => {
-  if (absintheSocket.isJoining) {
-    joinChannelIfNeeded(absintheSocket);
+  if (shouldJoinChannel(absintheSocket)) {
+    joinChannel(absintheSocket);
   }
 };
 
@@ -96,7 +83,7 @@ const create = (phoenixSocket: PhoenixSocket): AbsintheSocket => {
   const absintheSocket: AbsintheSocket = {
     phoenixSocket,
     channel: phoenixSocket.channel(absintheChannelName),
-    isJoining: false,
+    channelJoinCreated: false,
     notifiers: []
   };
 
