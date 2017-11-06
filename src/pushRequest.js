@@ -71,9 +71,12 @@ const subcriptionHandler: NotifierPushHandler<SubscriptionResponse> = {
   onSucceed: onSubscriptionResponse
 };
 
+const requestToDoc = ({operation, variables}) =>
+  variables ? {query: operation, variables} : {query: operation};
+
 const send = (absintheSocket, request, notifierPushHandler) =>
   handlePush(
-    absintheSocket.channel.push("doc", request),
+    absintheSocket.channel.push("doc", requestToDoc(request)),
     createPushHandler(notifierPushHandler, absintheSocket, request)
   );
 
