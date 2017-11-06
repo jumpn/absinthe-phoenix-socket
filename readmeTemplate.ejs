@@ -23,6 +23,9 @@
 > Calling [cancel](#cancel) removes given notifier from absintheSocket instance
   and sends a Cancel event to all its observers and unsubscribes in case it
   holds a subscription request.
+- Operations deduplication
+> If an already sent request is given to [send](#send), then instead of sending
+  it again, the notifier associated with it will be returned.
 - Observer support of recoverable errors
 > Since connection lost is handled, then two events needs to exist to represent
   this fact: Error (recoverable), Abort (unrecoverable).

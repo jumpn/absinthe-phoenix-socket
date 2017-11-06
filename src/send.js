@@ -4,6 +4,7 @@ import {append} from "@jumpn/utils-array";
 
 import joinChannel from "./joinChannel";
 import notifierCreate from "./notifier/create";
+import notifierFind from "./notifier/find";
 import pushRequest from "./pushRequest";
 import updateNotifiers from "./updateNotifiers";
 
@@ -16,6 +17,20 @@ const connectOrJoinChannel = absintheSocket => {
     // socket ignores connect calls if a connection has already been created
     absintheSocket.phoenixSocket.connect();
   }
+};
+
+const sendNew = (absintheSocket, request) => {
+  const notifier = notifierCreate(request);
+
+  updateNotifiers(absintheSocket, append([notifier]));
+
+  if (absintheSocket.channelJoinCreated) {
+    pushRequest(absintheSocket, notifier);
+  } else {
+    connectOrJoinChannel(absintheSocket);
+  }
+
+  return notifier;
 };
 
 /**
@@ -45,18 +60,8 @@ const connectOrJoinChannel = absintheSocket => {
 const send = (
   absintheSocket: AbsintheSocket,
   request: GqlRequest<*>
-): Notifier<*> => {
-  const notifier = notifierCreate(request);
-
-  updateNotifiers(absintheSocket, append([notifier]));
-
-  if (absintheSocket.channelJoinCreated) {
-    pushRequest(absintheSocket, notifier);
-  } else {
-    connectOrJoinChannel(absintheSocket);
-  }
-
-  return notifier;
-};
+): Notifier<*> =>
+  notifierFind(absintheSocket.notifiers, "request", request) ||
+  sendNew(absintheSocket, request);
 
 export default send;
